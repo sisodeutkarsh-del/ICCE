@@ -1,0 +1,241 @@
+{
+  "metadata": {
+    "report_title": "International Solar Technology Partner Matching Report",
+    "sdg_target": "UN SDG 7.A (Clean Energy Technology & Investment Cooperation)",
+    "generated_at": "2026-10-24T01:31:46.214305",
+    "generator": "Pune Rooftop Solar Partner Matching Agent v1.0"
+  },
+  "project_profile": {
+    "project_id": "pune_kothrud_chs",
+    "project_name": "Kothrud Cooperative Housing Society Rooftop",
+    "pune_locality": "Kothrud, Pune",
+    "building_type": "HOUSING_SOCIETY",
+    "target_capacity_kw": 35.0,
+    "budget_inr": 2200000.0,
+    "roof_type": "RCC_FLAT",
+    "technology_preference": [
+      "STRING_INVERTER",
+      "TOPCON"
+    ],
+    "grid_coupling": "ON_GRID_NET_METERED",
+    "service_requirement": "MAHARASHTRA_SERVICE_NETWORK",
+    "priority_weights": null
+  },
+  "technical_sizing_analysis": {
+    "project_id": "pune_kothrud_chs",
+    "project_name": "Kothrud Cooperative Housing Society Rooftop",
+    "locality": "Kothrud, Pune",
+    "target_capacity_kw": 35.0,
+    "estimated_annual_generation_kwh": 52500.0,
+    "estimated_co2_offset_tons_per_year": 43.05,
+    "estimated_roof_area_sqft": 3500.0,
+    "estimated_roof_area_sqm": 325.2,
+    "budget_inr": 2200000.0,
+    "budget_per_kw_inr": 62857.14,
+    "regulatory_notes": [
+      "MSEDCL Net-Metering: Rooftop capacity must not exceed 100% of sanctioned contract demand.",
+      "Three-phase connection and bi-directional meter required by MSEDCL for capacities > 10 kW.",
+      "Housing Society (CHS): Requires General Body Resolution (GBM) approval and separate common-meter net connection."
+    ]
+  },
+  "executive_synthesis": "[DETERMINISTIC AGENT SYNTHESIS - OFFLINE FALLBACK MODE]\n\nExecutive Summary:\nBased on the technical compatibility criteria for Pune City rooftop solar projects under MSEDCL net-metering guidelines, candidate partners were screened across technology match, capacity feasibility, India service presence, and BIS/IEC compliance.\n\nKey Recommendation Insight:\nProviders with direct Indian subsidiaries and local Maharashtra channel partners offer superior long-term warranty security and faster service turnaround (SLA < 48h) for Pune's urban rooftop environments.\n\nNote: This analysis was generated deterministically by the local agent engine without external cloud LLM dependencies.",
+  "eligible_partners": [
+    {
+      "rank": 1,
+      "provider_id": "prv_sma_solar_de",
+      "provider_name": "SMA Solar Technology AG",
+      "country": "Germany",
+      "compatibility_score": {
+        "total_score": 82.7,
+        "tech_fit": 50.0,
+        "capacity_fit": 100.0,
+        "service_fit": 100.0,
+        "cert_fit": 100.0,
+        "doc_fit": 75.0,
+        "cost_fit": 76.7,
+        "missing_penalty": 0.0,
+        "score_tier": "Strong Match"
+      },
+      "positive_drivers": [
+        "Partial technology overlap (50.0%) with requested system specifications.",
+        "Direct local Pune service support and active in-country spare parts warehouse.",
+        "Target capacity (35.0 kW) sits inside provider's optimal operating range.",
+        "Full dual compliance: Bureau of Indian Standards (BIS CRS) and International Electrotechnical Commission (IEC)."
+      ],
+      "risk_flags": [],
+      "missing_fields": [],
+      "evidence_citations": [
+        {
+          "citation_id": "ev_sma_01",
+          "claim": "SMA Sunny Tripower and Sunny Boy rooftop inverters for residential and commercial installations.",
+          "source_url": "https://www.sma.de/en/products/solarinverters",
+          "source_type": "OFFICIAL_PORTAL",
+          "last_verified": "2026-10-15",
+          "verification_note": "Verified from official SMA product catalog and technical specifications."
+        },
+        {
+          "citation_id": "ev_sma_02",
+          "claim": "SMA Solar India Private Limited corporate subsidiary and Western India support coverage.",
+          "source_url": "https://www.sma-india.com/",
+          "source_type": "OFFICIAL_PORTAL",
+          "last_verified": "2026-10-15",
+          "verification_note": "Verified Indian subsidiary presence in Mumbai with service partners in Pune."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "provider_id": "prv_longi_solar_cn",
+      "provider_name": "LONGi Green Energy Technology Co., Ltd.",
+      "country": "China",
+      "compatibility_score": {
+        "total_score": 82.5,
+        "tech_fit": 50.0,
+        "capacity_fit": 100.0,
+        "service_fit": 100.0,
+        "cert_fit": 100.0,
+        "doc_fit": 50.0,
+        "cost_fit": 100.0,
+        "missing_penalty": 0.0,
+        "score_tier": "Strong Match"
+      },
+      "positive_drivers": [
+        "Partial technology overlap (50.0%) with requested system specifications.",
+        "Direct local Pune service support and active in-country spare parts warehouse.",
+        "Target capacity (35.0 kW) sits inside provider's optimal operating range.",
+        "Full dual compliance: Bureau of Indian Standards (BIS CRS) and International Electrotechnical Commission (IEC).",
+        "Cost tier (MID_RANGE) strongly aligns with project budget allocation."
+      ],
+      "risk_flags": [],
+      "missing_fields": [],
+      "evidence_citations": [
+        {
+          "citation_id": "ev_longi_01",
+          "claim": "Hi-MO 5 and Hi-MO X6 monocrystalline and HPBC/TOPCon high-efficiency rooftop modules.",
+          "source_url": "https://www.longi.com/en/products/modules/",
+          "source_type": "PRODUCT_DATASHEET",
+          "last_verified": "2026-10-18",
+          "verification_note": "Verified from LONGi official technical datasheets and BIS CRS registration."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "provider_id": "prv_sungrow_cn",
+      "provider_name": "Sungrow Power Supply Co., Ltd.",
+      "country": "China",
+      "compatibility_score": {
+        "total_score": 82.5,
+        "tech_fit": 50.0,
+        "capacity_fit": 100.0,
+        "service_fit": 100.0,
+        "cert_fit": 100.0,
+        "doc_fit": 50.0,
+        "cost_fit": 100.0,
+        "missing_penalty": 0.0,
+        "score_tier": "Strong Match"
+      },
+      "positive_drivers": [
+        "Partial technology overlap (50.0%) with requested system specifications.",
+        "Direct local Pune service support and active in-country spare parts warehouse.",
+        "Target capacity (35.0 kW) sits inside provider's optimal operating range.",
+        "Full dual compliance: Bureau of Indian Standards (BIS CRS) and International Electrotechnical Commission (IEC).",
+        "Cost tier (MID_RANGE) strongly aligns with project budget allocation."
+      ],
+      "risk_flags": [],
+      "missing_fields": [],
+      "evidence_citations": [
+        {
+          "citation_id": "ev_sungrow_01",
+          "claim": "Commercial and residential rooftop string inverters and modular energy storage systems.",
+          "source_url": "https://india.sungrowpower.com/",
+          "source_type": "OFFICIAL_PORTAL",
+          "last_verified": "2026-10-14",
+          "verification_note": "Verified from Sungrow India subsidiary records and technical datasheets."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "provider_id": "prv_trina_solar_cn",
+      "provider_name": "Trina Solar Co., Ltd.",
+      "country": "China",
+      "compatibility_score": {
+        "total_score": 82.5,
+        "tech_fit": 50.0,
+        "capacity_fit": 100.0,
+        "service_fit": 100.0,
+        "cert_fit": 100.0,
+        "doc_fit": 50.0,
+        "cost_fit": 100.0,
+        "missing_penalty": 0.0,
+        "score_tier": "Strong Match"
+      },
+      "positive_drivers": [
+        "Partial technology overlap (50.0%) with requested system specifications.",
+        "Direct local Pune service support and active in-country spare parts warehouse.",
+        "Target capacity (35.0 kW) sits inside provider's optimal operating range.",
+        "Full dual compliance: Bureau of Indian Standards (BIS CRS) and International Electrotechnical Commission (IEC).",
+        "Cost tier (MID_RANGE) strongly aligns with project budget allocation."
+      ],
+      "risk_flags": [],
+      "missing_fields": [],
+      "evidence_citations": [
+        {
+          "citation_id": "ev_trina_01",
+          "claim": "Vertex S and Vertex S+ n-type TOPCon dual-glass rooftop modules up to 450W+ with high reliability.",
+          "source_url": "https://www.trinasolar.com/en-glb/resources/downloads",
+          "source_type": "PRODUCT_DATASHEET",
+          "last_verified": "2026-10-18",
+          "verification_note": "Verified from Trina Solar global technical library and BIS certification records."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "provider_id": "prv_solaredge_il",
+      "provider_name": "SolarEdge Technologies Inc.",
+      "country": "Israel",
+      "compatibility_score": {
+        "total_score": 80.2,
+        "tech_fit": 50.0,
+        "capacity_fit": 100.0,
+        "service_fit": 100.0,
+        "cert_fit": 100.0,
+        "doc_fit": 50.0,
+        "cost_fit": 76.7,
+        "missing_penalty": 0.0,
+        "score_tier": "Strong Match"
+      },
+      "positive_drivers": [
+        "Partial technology overlap (50.0%) with requested system specifications.",
+        "Direct local Pune service support and active in-country spare parts warehouse.",
+        "Target capacity (35.0 kW) sits inside provider's optimal operating range.",
+        "Full dual compliance: Bureau of Indian Standards (BIS CRS) and International Electrotechnical Commission (IEC)."
+      ],
+      "risk_flags": [],
+      "missing_fields": [],
+      "evidence_citations": [
+        {
+          "citation_id": "ev_solaredge_01",
+          "claim": "DC-optimized string inverter architecture with module-level monitoring and safeDC technology.",
+          "source_url": "https://www.solaredge.com/in/",
+          "source_type": "OFFICIAL_PORTAL",
+          "last_verified": "2026-10-10",
+          "verification_note": "Audited from SolarEdge India commercial and residential documentation."
+        }
+      ]
+    }
+  ],
+  "disqualified_providers": [
+    {
+      "provider_id": "prv_enphase_energy_us",
+      "provider_name": "Enphase Energy, Inc.",
+      "country": "United States",
+      "reasons": [
+        "Technology Mismatch: Provider does not supply requested technologies [<TechType.STRING_INVERTER: 'STRING_INVERTER'>, <TechType.TOPCON: 'TOPCON'>]. Offers [<TechType.BESS_LFP: 'BESS_LFP'>, <TechType.MICROINVERTER: 'MICROINVERTER'>]."
+      ]
+    }
+  ],
+  "disclaimer": "> [!IMPORTANT]\n> **DISCLAIMER & REGULATORY NOTICE:**\n> 1. This report is an AI-assisted technical partner compatibility screening prepared for academic and preliminary planning purposes under UN Sustainable Development Goal 7, Target 7.A.\n> 2. It does not constitute a formal structural audit, electrical engineering sign-off, commercial tender, or financial investment advice.\n> 3. Final rooftop structural load bearing capacity, shadow analysis, electrical sanction from MSEDCL (Maharashtra State Electricity Distribution Company Limited), and MNRE subsidy compliance must be certified by a licensed Electrical Contractor / Solar EPC in Pune."
+}

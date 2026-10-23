@@ -33,3 +33,4 @@ desktop.ini
 logs/
 reports/private/
 scratch/
+.git_backup/
