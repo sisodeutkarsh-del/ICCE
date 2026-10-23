@@ -215,7 +215,7 @@ The active database includes verified international technology leaders with acti
 ## 🔒 8. Security & Secret Redaction Guarantee
 
 - **Zero Secrets in Repository:** `.env` is permanently excluded via `.gitignore` and verified with `git check-ignore`.
-- **Masked Display:** Keys are only shown in masked form (e.g., `mock-key-xxxx...yyyy`).
+- **Privacy-First UI:** Raw and masked keys are never rendered in the interface; status badges display only connection health (e.g., `● Configured` / `○ Offline`).
 - **Log Stream Redaction:** `SanitizedFormatter` in `src/utils/logger.py` uses token regex matching to strip raw API keys from all logger outputs.
 - **Automated Security Audit:** Integration test `test_security_audit_zero_secret_leak` ensures that exported reports never leak active credential strings.
 

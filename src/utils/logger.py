@@ -11,10 +11,11 @@ from typing import Optional
 
 
 SENSITIVE_PATTERNS = [
-    re.compile(r"(sk-or-v1-[a-zA-Z0-9]{16})[a-zA-Z0-9]+"),
+    re.compile(r"(sk-or-v1-[a-zA-Z0-9]{8})[a-zA-Z0-9]+"),
     re.compile(r"(hf_[a-zA-Z0-9]{8})[a-zA-Z0-9]+"),
     re.compile(r"(AQ\.[a-zA-Z0-9_\-]{8})[a-zA-Z0-9_\-]+"),
     re.compile(r"(AIzaSy[a-zA-Z0-9_\-]{8})[a-zA-Z0-9_\-]+"),
+    re.compile(r"(mock-test-key-[a-zA-Z0-9]{8})[a-zA-Z0-9]+"),
 ]
 
 

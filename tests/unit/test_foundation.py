@@ -48,10 +48,10 @@ def test_logger_redaction():
         def getMessage(self):
             return self.msg
 
-    rec = DummyRecord("Calling OpenRouter with key mock-test-key-0123456789abcdef0123456789abcdef now")
+    rec = DummyRecord("Calling service with key mock-test-key-0123456789abcdef0123456789abcdef now")
     formatted = formatter.format(rec)
     assert "mock-test-key-01234567...[REDACTED]" in formatted
-    assert "0123456789abcdef0123456789abcdef0123456789abcdef" not in formatted
+    assert "0123456789abcdef0123456789abcdef" not in formatted
 
 
 def test_database_initialization(tmp_path: Path):
