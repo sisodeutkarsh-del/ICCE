@@ -1,21 +1,15 @@
 # ☀️ INTERNATIONAL SOLAR TECHNOLOGY PARTNER MATCHING REPORT
 **Project Name:** Kothrud Cooperative Housing Society Rooftop  
 **Target Geography:** Kothrud, Pune, Maharashtra, India  
-**Date Generated:** 2026-10-24 01:31:46  
+**Date Generated:** 2026-10-24 02:08:57  
 **UN SDG Alignment:** Goal 7, Target 7.A (Clean Energy Technology & Investment Cooperation)  
 
 ---
 
 ## 1. Executive Summary
-[DETERMINISTIC AGENT SYNTHESIS - OFFLINE FALLBACK MODE]
+Here is a 3-sentence executive summary for rooftop solar partner matching in Pune City:
 
-Executive Summary:
-Based on the technical compatibility criteria for Pune City rooftop solar projects under MSEDCL net-metering guidelines, candidate partners were screened across technology match, capacity feasibility, India service presence, and BIS/IEC compliance.
-
-Key Recommendation Insight:
-Providers with direct Indian subsidiaries and local Maharashtra channel partners offer superior long-term warranty security and faster service turnaround (SLA < 48h) for Pune's urban rooftop environments.
-
-Note: This analysis was generated deterministically by the local agent engine without external cloud LLM dependencies.
+For the Kothrud Cooperative Housing Society rooftop solar project in Pune, our analysis has identified SMA Solar Technology AG (Germany) as the top-matched partner, with a score of 82.7, closely followed by LONGi Green Energy Technology Co., Ltd. (China) and Sungrow Power Supply Co., Ltd. (China), both with a score of 82.5. Notably, SMA Solar Technology AG has a strong local presence in Maharashtra, with a dedicated service team based in Mumbai, ensuring timely and effective after-sales support for the project. This partnership aligns with the United Nations' Sustainable Development Goal 7.A, which aims to increase the share of renewable energy in the global energy mix, and supports Pune City's commitment to reducing greenhouse gas emissions and promoting sustainable development.
 
 
 ## 2. Pune Rooftop Sizing & Energy Yield Projection

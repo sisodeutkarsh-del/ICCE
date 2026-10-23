@@ -14,7 +14,7 @@ class LLMResponse(BaseModel):
     provider_name: str = Field(..., description="Adapter name (e.g. OpenRouter, Gemini, HuggingFace, Mock)")
     model_id: str = Field(..., description="Underlying model identifier")
     latency_seconds: float = Field(..., description="Round-trip execution latency in seconds")
-    token_usage: Optional[Dict[str, int]] = Field(default=None, description="Prompt/completion token counts if reported")
+    token_usage: Optional[Dict[str, Any]] = Field(default=None, description="Prompt/completion token counts if reported")
     is_fallback: bool = Field(default=False, description="True if response came from an automated fallback")
 
 

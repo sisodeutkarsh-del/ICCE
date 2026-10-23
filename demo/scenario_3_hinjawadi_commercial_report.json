@@ -2,7 +2,7 @@
   "metadata": {
     "report_title": "International Solar Technology Partner Matching Report",
     "sdg_target": "UN SDG 7.A (Clean Energy Technology & Investment Cooperation)",
-    "generated_at": "2026-10-24T01:32:10.118617",
+    "generated_at": "2026-10-24T02:09:00.788658",
     "generator": "Pune Rooftop Solar Partner Matching Agent v1.0"
   },
   "project_profile": {
@@ -38,7 +38,7 @@
       "Commercial/Industrial > 100 kW: Electrical Inspector (CEI) approval and anti-islanding relay certification mandatory."
     ]
   },
-  "executive_synthesis": "[DETERMINISTIC AGENT SYNTHESIS - OFFLINE FALLBACK MODE]\n\nExecutive Summary:\nBased on the technical compatibility criteria for Pune City rooftop solar projects under MSEDCL net-metering guidelines, candidate partners were screened across technology match, capacity feasibility, India service presence, and BIS/IEC compliance.\n\nKey Recommendation Insight:\nProviders with direct Indian subsidiaries and local Maharashtra channel partners offer superior long-term warranty security and faster service turnaround (SLA < 48h) for Pune's urban rooftop environments.\n\nNote: This analysis was generated deterministically by the local agent engine without external cloud LLM dependencies.",
+  "executive_synthesis": "Here is a 3-sentence executive summary for rooftop solar partner matching in Pune City:\n\nFor the Hinjawadi IT Park Commercial Rooftop in Hinjawadi Phase 1, Pcmc, we recommend partnering with SMA Solar Technology AG (Germany) for a 150.0 kW rooftop solar installation, leveraging their strong local service presence in Maharashtra and alignment with UN SDG 7.A (Ensure access to affordable, reliable, sustainable and modern energy). With a score of 82.7, SMA Solar Technology AG offers a reliable and efficient solar solution that meets the project's requirements. This partnership will not only contribute to Pune City's renewable energy goals but also support the local economy through job creation and skill development.",
   "eligible_partners": [
     {
       "rank": 1,

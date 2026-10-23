@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     gemini_api_key: Optional[str] = Field(default=None, description="Google Gemini API key")
 
     # Model IDs
-    openrouter_model: str = Field(default="meta-llama/llama-3.1-8b-instruct:free", description="Default OpenRouter model")
+    openrouter_model: str = Field(default="meta-llama/llama-3.1-8b-instruct", description="Default OpenRouter model")
     huggingface_model: str = Field(default="mistralai/Mistral-7B-Instruct-v0.3", description="Default HuggingFace model")
     gemini_model: str = Field(default="gemini-1.5-flash", description="Default Gemini model")
 
