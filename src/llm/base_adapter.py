@@ -17,6 +17,12 @@ class LLMResponse(BaseModel):
     token_usage: Optional[Dict[str, Any]] = Field(default=None, description="Prompt/completion token counts if reported")
     is_fallback: bool = Field(default=False, description="True if response came from an automated fallback")
 
+    @property
+    def adapter_name(self) -> str:
+        """Alias for provider_name."""
+        return self.provider_name
+
+
 
 class ProviderHealthStatus(BaseModel):
     """Health status and diagnostic metadata for a model provider."""

@@ -76,11 +76,17 @@ class MatchingAgentWorkflow:
                 )
                 logger.info("Calling LLM Gateway via FallbackOrchestrator for project '%s'...", profile.project_name)
                 llm_res = self.orchestrator.generate_with_fallback(prompt, system_prompt=system_prompt)
-                logger.info("Live AI synthesis received from adapter '%s' in %.2fs", llm_res.adapter_name, llm_res.latency_seconds)
                 synthesis = llm_res.content
+                logger.info(
+                    "Live AI synthesis received from provider '%s' (model: %s) in %.2fs",
+                    llm_res.provider_name,
+                    llm_res.model_id,
+                    llm_res.latency_seconds,
+                )
             except Exception as e:
                 logger.warning("LLM synthesis failed; proceeding with template synthesis: %s", str(e))
-                synthesis = ""
+                if not synthesis:
+                    synthesis = ""
 
         # 5. Generate Markdown and JSON reports
         md_report = RecommendationReportService.generate_markdown_report(
