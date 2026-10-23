@@ -4,6 +4,7 @@ Targeted at rooftop solar installations in Pune City, Maharashtra, India.
 Aligned with UN Sustainable Development Goal 7, Target 7.A.
 """
 
+import json
 import uuid
 import pandas as pd
 import streamlit as st
@@ -20,6 +21,9 @@ from src.domain.models import (
 )
 from src.services.requirement_analyzer import RequirementAnalyzerService
 from src.services.matching_service import MatchingService
+from src.services.agent_workflow import MatchingAgentWorkflow
+from src.llm import OpenRouterAdapter, GeminiAdapter, HuggingFaceAdapter, FallbackOrchestrator
+from src.reports.report_generator import RecommendationReportService
 from src.ui.components import (
     render_analysis_metrics,
     render_match_card,
@@ -82,6 +86,20 @@ if not settings.absolute_db_path.exists():
     seed_database()
 
 repo = SQLiteProviderRepository(settings.absolute_db_path)
+
+# Initialize LLM Gateway with configured adapters
+openrouter_adapter = OpenRouterAdapter(api_key=settings.openrouter_api_key, model_id=settings.openrouter_model)
+gemini_adapter = GeminiAdapter(api_key=settings.gemini_api_key, model_id=settings.gemini_model)
+hf_adapter = HuggingFaceAdapter(api_key=settings.huggingface_api_key, model_id=settings.huggingface_model)
+
+orchestrator = FallbackOrchestrator(
+    adapters=[openrouter_adapter, gemini_adapter, hf_adapter],
+    max_retries=settings.llm_max_retries,
+    backoff_base=settings.llm_backoff_base_seconds,
+    default_timeout=settings.llm_timeout_seconds,
+)
+
+workflow = MatchingAgentWorkflow(repository=repo, orchestrator=orchestrator)
 
 
 # Pre-defined realistic Pune scenarios
@@ -197,9 +215,10 @@ def main():
         unsafe_allow_html=True
     )
 
-    tab_intake, tab_matches, tab_catalog, tab_overview = st.tabs([
+    tab_intake, tab_matches, tab_reports, tab_catalog, tab_overview = st.tabs([
         "🏗️ Project Intake & Screening",
         "🎯 Matching Results & Rankings",
+        "📑 Collaboration Report & Export",
         "📚 Provider Knowledge Base",
         "📋 Pune Context & Methodology"
     ])
@@ -361,7 +380,62 @@ def main():
                     for result in disqualified:
                         render_disqualified_card(result)
 
-    # --- TAB 3: PROVIDER KNOWLEDGE BASE EXPLORER ---
+    # --- TAB 3: COLLABORATION REPORT & EXPORT ---
+    with tab_reports:
+        if "active_profile" not in st.session_state:
+            st.info("👈 Please define and run a project screening in the **Project Intake** tab first.")
+        else:
+            profile: ProjectProfile = st.session_state["active_profile"]
+            eligible: list = st.session_state.get("eligible_results", [])
+            disqualified: list = st.session_state.get("disqualified_results", [])
+            analysis: dict = st.session_state.get("analysis", {})
+
+            st.markdown(f"### 📑 UN SDG 7.A Collaboration Recommendation Report")
+            st.caption(f"Project: **{profile.project_name}** | Target: {profile.target_capacity_kw} kW | Locality: {profile.pune_locality}")
+
+            col_rep_btn1, col_rep_btn2 = st.columns([1, 1])
+            with col_rep_btn1:
+                gen_llm = st.button("🤖 Generate / Refresh with LLM Synthesis", help="Calls configured LLM gateway (or offline deterministic fallback) to generate natural language summary.")
+            
+            # Check or generate report
+            if gen_llm or "current_md_report" not in st.session_state:
+                with st.spinner("Compiling evidence-grounded recommendation report..."):
+                    wf_res = workflow.run_workflow(
+                        profile=profile,
+                        include_sample=include_sample,
+                        trigger_llm_synthesis=gen_llm,
+                    )
+                    st.session_state["current_md_report"] = wf_res.markdown_report
+                    st.session_state["current_json_report"] = json.dumps(wf_res.json_report, indent=2)
+
+            md_content = st.session_state.get("current_md_report", "")
+            json_content = st.session_state.get("current_json_report", "{}")
+
+            # Download Buttons
+            st.markdown("#### 💾 Export Report")
+            col_d1, col_d2 = st.columns(2)
+            with col_d1:
+                st.download_button(
+                    label="📥 Download Markdown Report (.md)",
+                    data=md_content,
+                    file_name=f"SolarMatch_Report_{profile.project_name.replace(' ', '_')}.md",
+                    mime="text/markdown",
+                    type="primary",
+                )
+            with col_d2:
+                st.download_button(
+                    label="📥 Download Structured JSON Data (.json)",
+                    data=json_content,
+                    file_name=f"SolarMatch_Data_{profile.project_name.replace(' ', '_')}.json",
+                    mime="application/json",
+                )
+
+            st.markdown("---")
+            st.markdown("#### 📄 Document Preview")
+            with st.expander("View Full Report Markdown Preview", expanded=True):
+                st.markdown(md_content)
+
+    # --- TAB 4: PROVIDER KNOWLEDGE BASE EXPLORER ---
     with tab_catalog:
         st.markdown("### 📚 International Solar Technology Knowledge Base")
         st.markdown(

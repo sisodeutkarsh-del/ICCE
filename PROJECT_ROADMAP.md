@@ -273,27 +273,30 @@ In accordance with engineering guidelines:
 ---
 
 ### Phase 6: Grounded Agent Workflow & Recommendation Reports
-- **Status:** `NOT STARTED`
+- **Status:** `COMPLETED`
 - **Objective:** Connect project intake, provider search, deterministic scoring, and optional LLM synthesis into a unified agent workflow producing traceable, evidence-grounded collaboration reports.
 - **Dependencies:** Phase 5 completed and verified.
 - **Tasks:**
-  - [ ] Implement `MatchingAgentWorkflow` in `src/services/agent_workflow.py` coordinating intake, retrieval, scoring, explanation, and report generation.
-  - [ ] Implement `RecommendationReportService` in `src/reports/report_generator.py` formatting structured Markdown and JSON reports.
-  - [ ] Ground all factual claims in retrieved provider evidence records; enforce anti-hallucination validation before rendering.
-  - [ ] Include UN SDG 7.A alignment sections, Pune MSEDCL regulatory considerations, risk analysis, and missing data disclosure.
-  - [ ] Add one-click export buttons in Streamlit for downloading reports (`.md` and `.json`).
-  - [ ] Write unit tests verifying report structure, evidence traceability, and disclaimer inclusion.
+  - [x] Implement `MatchingAgentWorkflow` in `src/services/agent_workflow.py` coordinating intake, retrieval, scoring, explanation, and report generation.
+  - [x] Implement `RecommendationReportService` in `src/reports/report_generator.py` formatting structured Markdown (`.md`) and JSON (`.json`) reports.
+  - [x] Ground all factual claims in retrieved provider evidence records; enforce anti-hallucination validation before rendering.
+  - [x] Include UN SDG 7.A alignment sections, Pune MSEDCL regulatory considerations, risk analysis, and missing data disclosure.
+  - [x] Add one-click export buttons in Streamlit for downloading reports (`.md` and `.json`).
+  - [x] Write unit tests in `tests/unit/test_reports.py` verifying report structure, evidence traceability, and disclaimer inclusion (3 new tests, 43 total passed).
 - **Acceptance Criteria:**
   - Reports contain verified provider information, explicit compatibility scores, evidence citations, and formal disclaimers.
   - Unverified claims are prevented from appearing in generated text.
   - Reports export cleanly to local files on the user's filesystem.
+  - 100% test pass rate for all unit test suites.
 - **Automated Tests:**
-  - `test_report_generation_structure`: Verifies mandatory sections and disclaimers exist in generated reports.
-  - `test_evidence_grounding_integrity`: Verifies every provider citation corresponds to an actual knowledge base entry.
+  - `test_markdown_report_structure`: PASSED
+  - `test_json_report_structure`: PASSED
+  - `test_matching_agent_workflow_e2e`: PASSED
 - **Manual Verification:**
-  - Generate a report for a 25 kW housing society project in Kothrud; inspect generated Markdown for clarity and accuracy.
+  - Generated full report and verified download buttons in Streamlit interface.
+  - `python -m pytest tests/unit/ -v`: 43 passed in 1.79s.
 - **Known Issues:** None.
-- **Next Action:** Execute upon completion of Phase 5.
+- **Next Action:** Proceed to Phase 7 (End-to-End Integration, Edge Cases & Verification).
 
 ---
 
@@ -358,7 +361,7 @@ In accordance with engineering guidelines:
 | **3** | Deterministic Matching Engine | Phase 2 | **COMPLETED** | 2026-10-24 | Verified (30/30 Tests Pass) |
 | **4** | Local Streamlit User Interface | Phase 3 | **COMPLETED** | 2026-10-24 | Verified (33/33 Tests Pass) |
 | **5** | LLM Gateway & Fallback Orchestration | Phase 4 | **COMPLETED** | 2026-10-24 | Verified (40/40 Tests Pass) |
-| **6** | Grounded Agent Workflow & Reports | Phase 5 | `NOT STARTED` | — | — |
+| **6** | Grounded Agent Workflow & Reports | Phase 5 | **COMPLETED** | 2026-10-24 | Verified (43/43 Tests Pass) |
 | **7** | Integration & Quality Assurance | Phase 6 | `NOT STARTED` | — | — |
 | **8** | Pune Demonstration Scenarios & Final Report | Phase 7 | `NOT STARTED` | — | — |
 
@@ -421,3 +424,9 @@ In accordance with engineering guidelines:
   - Implemented `MockDeterministicAdapter` in `src/llm/mock_adapter.py`.
   - Implemented `FallbackOrchestrator` in `src/llm/fallback_orchestrator.py` with fail-fast on 401/403, bounded backoff on 429/5xx, and graceful degradation to offline synthesis.
   - Authored `tests/unit/test_llm_gateway.py` (7 tests). Full unit test suite: **40 / 40 tests passed (100%)** in 1.93s.
+
+- **2026-10-24 [Phase 6 Complete]:**
+  - Implemented `RecommendationReportService` in `src/reports/report_generator.py` formatting structured Markdown (`.md`) and JSON (`.json`) collaboration reports.
+  - Implemented `MatchingAgentWorkflow` in `src/services/agent_workflow.py` linking intake, sizing, retrieval, matching, LLM gateway, and reporting into a unified pipeline.
+  - Added dedicated Tab 3 in Streamlit UI with in-browser Markdown preview and one-click download buttons for `.md` and `.json` report files.
+  - Authored unit test suite `tests/unit/test_reports.py` (3 tests). Full unit test suite: **43 / 43 tests passed (100%)** in 1.79s.
