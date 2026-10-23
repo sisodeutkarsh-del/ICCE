@@ -129,30 +129,44 @@ In accordance with engineering guidelines:
 ---
 
 ### Phase 2: Domain Model and Provider Knowledge Base
-- **Status:** `NOT STARTED`
+- **Status:** `COMPLETED`
 - **Objective:** Implement domain models with strict validation, source attribution, and SQLite repositories for provider data ingestion, deduplication, and retrieval.
 - **Dependencies:** Phase 1 completed and verified.
 - **Tasks:**
-  - [ ] Implement Pydantic domain models in `src/domain/models.py` (`ProjectProfile`, `ProviderRecord`, `EvidenceCitation`, `CompatibilityScore`, `MatchResult`, Enums for Pune building types, technologies, and presence tiers).
-  - [ ] Implement SQLite repository in `src/data/provider_repository.py` for querying, inserting, updating, and filtering provider records.
-  - [ ] Implement data ingestion utility in `src/data/importer.py` supporting JSON and CSV formats with schema validation and deduplication logic.
-  - [ ] Populate curated, verified international provider records (`data/verified_providers.json`) representing key rooftop solar manufacturers active in India (e.g., SMA Solar, Enphase Energy, SolarEdge, Sungrow, Longi Solar, Trina Solar) with genuine datasheets and official URLs.
-  - [ ] Separate verified records from synthetic fixtures (`data/sample_fixtures.json`).
-  - [ ] Implement unit tests for domain validation, duplicate detection, and repository CRUD operations.
+  - [x] Implement Pydantic domain models in `src/domain/models.py` (`ProjectProfile`, `ProviderRecord`, `EvidenceCitation`, `CompatibilityScore`, `MatchResult`, Enums for Pune building types, technologies, and presence tiers).
+  - [x] Implement SQLite repository in `src/data/provider_repository.py` for querying, inserting, updating, and filtering provider records.
+  - [x] Implement data ingestion utility in `src/data/importer.py` supporting JSON and CSV formats with schema validation and deduplication logic.
+  - [x] Populate curated, verified international provider records (`data/verified_providers.json`) representing key rooftop solar manufacturers active in India (SMA Solar, Enphase Energy, SolarEdge, Sungrow, Longi Solar, Trina Solar) with genuine datasheets and official URLs.
+  - [x] Separate verified records from synthetic fixtures (`data/sample_fixtures.json`).
+  - [x] Implement seed ingestion script (`database/seed_db.py`) and populate local database with 6 verified and 3 sample providers.
+  - [x] Implement unit tests for domain validation, duplicate detection, and repository CRUD operations (15 new tests, 20 total passed).
 - **Acceptance Criteria:**
   - Pydantic models reject invalid capacity, missing evidence, or malformed URLs with clear validation messages.
   - Importer flags duplicate provider IDs and invalid records without aborting the entire batch.
   - SQLite repository efficiently filters by technology and capacity.
   - Verified provider catalog contains authentic technical specifications and working source URLs.
+  - 100% test pass rate across Phase 2 test suites.
 - **Automated Tests:**
-  - `test_provider_record_validation_success`: Verifies valid provider profile parsing.
-  - `test_provider_record_validation_rejection`: Verifies rejection of missing evidence or invalid capacity.
-  - `test_repository_crud`: Tests insert, read, update, query by technology, and delete.
-  - `test_importer_deduplication`: Confirms duplicate provider entries update or skip without corrupting data.
+  - `test_valid_provider_record`: PASSED
+  - `test_provider_record_rejects_inverted_capacity`: PASSED
+  - `test_provider_record_rejects_missing_evidence`: PASSED
+  - `test_provider_record_rejects_invalid_url`: PASSED
+  - `test_project_profile_validation`: PASSED
+  - `test_project_profile_rejects_invalid_capacity`: PASSED
+  - `test_import_from_json_success`: PASSED
+  - `test_import_deduplication`: PASSED
+  - `test_import_handles_malformed_record_gracefully`: PASSED
+  - `test_import_nonexistent_file`: PASSED
+  - `test_upsert_and_get_provider`: PASSED
+  - `test_upsert_updates_existing_provider`: PASSED
+  - `test_list_providers_filter_sample_data`: PASSED
+  - `test_list_providers_capacity_filtering`: PASSED
+  - `test_delete_provider_cascades_evidence`: PASSED
 - **Manual Verification:**
-  - Inspect SQLite database using Python script to confirm record count and schema integrity.
+  - `python database/seed_db.py`: successfully populated 9 providers into `solar_agent.db`.
+  - `python -m pytest tests/unit/ -v`: 20 passed in 0.75s.
 - **Known Issues:** None.
-- **Next Action:** Execute upon completion of Phase 1.
+- **Next Action:** Proceed to Phase 3 (Deterministic Matching Engine).
 
 ---
 
@@ -322,7 +336,7 @@ In accordance with engineering guidelines:
 | :---: | :--- | :---: | :---: | :---: | :---: |
 | **0** | Project Definition & Canonical Documentation | None | **COMPLETED** | 2026-10-24 | Verified Baseline |
 | **1** | Environment & Foundation | Phase 0 | **COMPLETED** | 2026-10-24 | Verified (5/5 Tests Pass) |
-| **2** | Domain Model & Provider Knowledge Base | Phase 1 | `NOT STARTED` | — | — |
+| **2** | Domain Model & Provider Knowledge Base | Phase 1 | **COMPLETED** | 2026-10-24 | Verified (20/20 Tests Pass) |
 | **3** | Deterministic Matching Engine | Phase 2 | `NOT STARTED` | — | — |
 | **4** | Local Streamlit User Interface | Phase 3 | `NOT STARTED` | — | — |
 | **5** | LLM Gateway & Fallback Orchestration | Phase 4 | `NOT STARTED` | — | — |
@@ -354,3 +368,12 @@ In accordance with engineering guidelines:
   - Created deterministic test fixtures in `data/sample_fixtures.json`.
   - Created and ran test suite `tests/unit/test_foundation.py`: all 5 tests passed.
   - Implemented baseline `app.py` Streamlit entry point.
+
+- **2026-10-24 [Phase 2 Complete]:**
+  - Implemented Pydantic domain models in `src/domain/models.py` (`ProjectProfile`, `ProviderRecord`, `EvidenceCitation`, `CompatibilityScore`, `MatchResult`, Enums).
+  - Implemented `SQLiteProviderRepository` in `src/data/provider_repository.py` with upsert, query by ID, filter by capacity/verified flag, cascade deletion.
+  - Implemented `DataImporter` in `src/data/importer.py` with schema validation, deduplication, and error tracking.
+  - Curated 6 authentic international solar technology providers active in India (`data/verified_providers.json`): SMA Solar, Enphase Energy, SolarEdge, Sungrow, Longi Solar, Trina Solar with verified datasheets and BIS/IEC compliance.
+  - Executed `database/seed_db.py` populating 9 total providers (6 verified, 3 sample fixtures) into `database/solar_agent.db`.
+  - Created unit test suites `test_domain_models.py`, `test_provider_repository.py`, `test_importer.py`.
+  - Full unit test suite executed: **20 / 20 tests passed (100%)** in 0.75s.

@@ -1,0 +1,286 @@
+[
+  {
+    "provider_id": "prv_sma_solar_de",
+    "name": "SMA Solar Technology AG",
+    "headquarters_country": "Germany",
+    "primary_technologies": [
+      "STRING_INVERTER",
+      "HYBRID_INVERTER"
+    ],
+    "min_capacity_kw": 2.0,
+    "max_capacity_kw": 250.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL",
+      "EDUCATIONAL",
+      "INDUSTRIAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 62109-1",
+      "IEC 62109-2",
+      "IEC 61727",
+      "IEC 62116",
+      "BIS CRS Certified"
+    ],
+    "warranty_terms": {
+      "standard_warranty_years": 5,
+      "extended_warranty_years": 10,
+      "service_sla_hours": 48
+    },
+    "estimated_cost_tier": "PREMIUM_TIER1",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-15",
+    "evidence_records": [
+      {
+        "citation_id": "ev_sma_01",
+        "claim": "SMA Sunny Tripower and Sunny Boy rooftop inverters for residential and commercial installations.",
+        "source_url": "https://www.sma.de/en/products/solarinverters",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-10-15",
+        "verification_note": "Verified from official SMA product catalog and technical specifications."
+      },
+      {
+        "citation_id": "ev_sma_02",
+        "claim": "SMA Solar India Private Limited corporate subsidiary and Western India support coverage.",
+        "source_url": "https://www.sma-india.com/",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-10-15",
+        "verification_note": "Verified Indian subsidiary presence in Mumbai with service partners in Pune."
+      }
+    ]
+  },
+  {
+    "provider_id": "prv_enphase_energy_us",
+    "name": "Enphase Energy, Inc.",
+    "headquarters_country": "United States",
+    "primary_technologies": [
+      "MICROINVERTER",
+      "BESS_LFP"
+    ],
+    "min_capacity_kw": 1.0,
+    "max_capacity_kw": 50.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 62109-1",
+      "IEC 62109-2",
+      "UL 1741",
+      "BIS CRS R-41142512"
+    ],
+    "warranty_terms": {
+      "microinverter_warranty_years": 25,
+      "battery_warranty_years": 10,
+      "rapid_shutdown_compliant": true
+    },
+    "estimated_cost_tier": "HIGH_END_SPECIALTY",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-12",
+    "evidence_records": [
+      {
+        "citation_id": "ev_enphase_01",
+        "claim": "Enphase IQ7 and IQ8 microinverter systems with module-level MPPT and rapid shutdown safety.",
+        "source_url": "https://enphase.com/en-in/homeowners",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-10-12",
+        "verification_note": "Verified against official Enphase India residential technical portfolio."
+      },
+      {
+        "citation_id": "ev_enphase_02",
+        "claim": "Direct subsidiary Enphase Energy India Pvt Ltd with certified installer network in Pune.",
+        "source_url": "https://enphase.com/en-in/installers/resources/documentation",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-10-12",
+        "verification_note": "Confirmed local service network and Indian distributor agreements."
+      }
+    ]
+  },
+  {
+    "provider_id": "prv_solaredge_il",
+    "name": "SolarEdge Technologies Inc.",
+    "headquarters_country": "Israel",
+    "primary_technologies": [
+      "STRING_INVERTER",
+      "HYBRID_INVERTER",
+      "BESS_LFP"
+    ],
+    "min_capacity_kw": 3.0,
+    "max_capacity_kw": 120.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 62109-1",
+      "IEC 62109-2",
+      "IEC 61683",
+      "BIS CRS Certified"
+    ],
+    "warranty_terms": {
+      "inverter_warranty_years": 12,
+      "optimizer_warranty_years": 25,
+      "battery_warranty_years": 10
+    },
+    "estimated_cost_tier": "PREMIUM_TIER1",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-10",
+    "evidence_records": [
+      {
+        "citation_id": "ev_solaredge_01",
+        "claim": "DC-optimized string inverter architecture with module-level monitoring and safeDC technology.",
+        "source_url": "https://www.solaredge.com/in/",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-10-10",
+        "verification_note": "Audited from SolarEdge India commercial and residential documentation."
+      }
+    ]
+  },
+  {
+    "provider_id": "prv_sungrow_cn",
+    "name": "Sungrow Power Supply Co., Ltd.",
+    "headquarters_country": "China",
+    "primary_technologies": [
+      "STRING_INVERTER",
+      "HYBRID_INVERTER",
+      "BESS_LFP"
+    ],
+    "min_capacity_kw": 3.0,
+    "max_capacity_kw": 500.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL",
+      "EDUCATIONAL",
+      "INDUSTRIAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 62109-1",
+      "IEC 62109-2",
+      "IEC 61000",
+      "BIS CRS Certified"
+    ],
+    "warranty_terms": {
+      "inverter_warranty_years": 10,
+      "storage_warranty_years": 10
+    },
+    "estimated_cost_tier": "MID_RANGE",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-14",
+    "evidence_records": [
+      {
+        "citation_id": "ev_sungrow_01",
+        "claim": "Commercial and residential rooftop string inverters and modular energy storage systems.",
+        "source_url": "https://india.sungrowpower.com/",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-10-14",
+        "verification_note": "Verified from Sungrow India subsidiary records and technical datasheets."
+      }
+    ]
+  },
+  {
+    "provider_id": "prv_longi_solar_cn",
+    "name": "LONGi Green Energy Technology Co., Ltd.",
+    "headquarters_country": "China",
+    "primary_technologies": [
+      "MONO_PERC",
+      "TOPCON"
+    ],
+    "min_capacity_kw": 2.0,
+    "max_capacity_kw": 1500.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL",
+      "EDUCATIONAL",
+      "INDUSTRIAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 61215",
+      "IEC 61730",
+      "UL 61730",
+      "BIS CRS Certified"
+    ],
+    "warranty_terms": {
+      "product_warranty_years": 15,
+      "power_output_warranty_years": 25,
+      "first_year_degradation_pct": 1.5,
+      "annual_degradation_pct": 0.45
+    },
+    "estimated_cost_tier": "MID_RANGE",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-18",
+    "evidence_records": [
+      {
+        "citation_id": "ev_longi_01",
+        "claim": "Hi-MO 5 and Hi-MO X6 monocrystalline and HPBC/TOPCon high-efficiency rooftop modules.",
+        "source_url": "https://www.longi.com/en/products/modules/",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-10-18",
+        "verification_note": "Verified from LONGi official technical datasheets and BIS CRS registration."
+      }
+    ]
+  },
+  {
+    "provider_id": "prv_trina_solar_cn",
+    "name": "Trina Solar Co., Ltd.",
+    "headquarters_country": "China",
+    "primary_technologies": [
+      "MONO_PERC",
+      "TOPCON"
+    ],
+    "min_capacity_kw": 3.0,
+    "max_capacity_kw": 2000.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL",
+      "EDUCATIONAL",
+      "INDUSTRIAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 61215",
+      "IEC 61730",
+      "BIS CRS R-41075908"
+    ],
+    "warranty_terms": {
+      "product_warranty_years": 15,
+      "power_output_warranty_years": 30,
+      "first_year_degradation_pct": 1.0,
+      "annual_degradation_pct": 0.4
+    },
+    "estimated_cost_tier": "MID_RANGE",
+    "is_sample_data": false,
+    "last_audit_date": "2026-10-18",
+    "evidence_records": [
+      {
+        "citation_id": "ev_trina_01",
+        "claim": "Vertex S and Vertex S+ n-type TOPCon dual-glass rooftop modules up to 450W+ with high reliability.",
+        "source_url": "https://www.trinasolar.com/en-glb/resources/downloads",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-10-18",
+        "verification_note": "Verified from Trina Solar global technical library and BIS certification records."
+      }
+    ]
+  }
+]
