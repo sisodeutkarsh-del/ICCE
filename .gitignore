@@ -1,0 +1,35 @@
+# Environment variables and secrets (NEVER COMMIT)
+.env
+.env.local
+*.env
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Local databases and runtime state
+database/*.db
+*.sqlite3
+*.db
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Operating system artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and generated debug reports
+*.log
+logs/
+reports/private/
+scratch/

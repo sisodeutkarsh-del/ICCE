@@ -1,0 +1,131 @@
+[
+  {
+    "provider_id": "sample_prv_nordic_sun_se",
+    "name": "NordicSun Photovoltaics AB",
+    "headquarters_country": "Sweden",
+    "primary_technologies": [
+      "HJT",
+      "HYBRID_INVERTER"
+    ],
+    "min_capacity_kw": 5.0,
+    "max_capacity_kw": 150.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL",
+      "HOUSING_SOCIETY",
+      "COMMERCIAL"
+    ],
+    "india_presence_type": "AUTHORIZED_DISTRIBUTOR",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 61215",
+      "IEC 61730",
+      "BIS CRS R-41000001"
+    ],
+    "warranty_terms": {
+      "product_years": 15,
+      "performance_years": 30,
+      "linear_degradation_pct": 0.4
+    },
+    "estimated_cost_tier": "PREMIUM_TIER1",
+    "is_sample_data": true,
+    "last_audit_date": "2026-09-15",
+    "evidence_records": [
+      {
+        "citation_id": "s_ev_01",
+        "claim": "Official product datasheet for NordicSun 450W HJT bifacial module series.",
+        "source_url": "https://example.com/datasheets/nordicsun-hjt-450.pdf",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-09-15",
+        "verification_note": "Sample synthetic test record for integration and edge testing."
+      },
+      {
+        "citation_id": "s_ev_02",
+        "claim": "Pune distributor and technical warranty center confirmation in Bhosari MIDC.",
+        "source_url": "https://example.com/partners/india-pune-hub",
+        "source_type": "OFFICIAL_PORTAL",
+        "last_verified": "2026-09-15",
+        "verification_note": "Sample synthetic test record."
+      }
+    ]
+  },
+  {
+    "provider_id": "sample_prv_bavaria_storage_de",
+    "name": "Bavaria Power Systems GmbH",
+    "headquarters_country": "Germany",
+    "primary_technologies": [
+      "BESS_LFP",
+      "HYBRID_INVERTER"
+    ],
+    "min_capacity_kw": 10.0,
+    "max_capacity_kw": 500.0,
+    "supported_building_types": [
+      "HOUSING_SOCIETY",
+      "COMMERCIAL",
+      "EDUCATIONAL"
+    ],
+    "india_presence_type": "DIRECT_SUBSIDIARY",
+    "pune_service_availability": true,
+    "in_country_warehouse": true,
+    "certifications": [
+      "IEC 62619",
+      "IEC 62109",
+      "UL 9540A",
+      "BIS CRS R-41000002"
+    ],
+    "warranty_terms": {
+      "battery_cycles": 8000,
+      "warranty_years": 10
+    },
+    "estimated_cost_tier": "HIGH_END_SPECIALTY",
+    "is_sample_data": true,
+    "last_audit_date": "2026-10-01",
+    "evidence_records": [
+      {
+        "citation_id": "s_ev_03",
+        "claim": "Lithium Iron Phosphate modular C&I storage systems with active thermal cooling.",
+        "source_url": "https://example.com/datasheets/bavaria-bess-100kwh.pdf",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-10-01",
+        "verification_note": "Sample synthetic test record."
+      }
+    ]
+  },
+  {
+    "provider_id": "sample_prv_tokyo_micro_jp",
+    "name": "Tokyo MicroGrid Technologies",
+    "headquarters_country": "Japan",
+    "primary_technologies": [
+      "MICROINVERTER",
+      "MONO_PERC"
+    ],
+    "min_capacity_kw": 1.0,
+    "max_capacity_kw": 25.0,
+    "supported_building_types": [
+      "RESIDENTIAL_INDIVIDUAL"
+    ],
+    "india_presence_type": "IMPORT_ONLY_NO_LOCAL_OFFICE",
+    "pune_service_availability": false,
+    "in_country_warehouse": false,
+    "certifications": [
+      "IEC 62109",
+      "VDE-AR-N 4105"
+    ],
+    "warranty_terms": {
+      "product_years": 25
+    },
+    "estimated_cost_tier": "PREMIUM_TIER1",
+    "is_sample_data": true,
+    "last_audit_date": "2026-08-20",
+    "evidence_records": [
+      {
+        "citation_id": "s_ev_04",
+        "claim": "Module-level power electronics microinverters for residential pitched/flat roofs.",
+        "source_url": "https://example.com/datasheets/tokyo-micro-iq.pdf",
+        "source_type": "PRODUCT_DATASHEET",
+        "last_verified": "2026-08-20",
+        "verification_note": "Sample synthetic test record for presence gate rejection testing."
+      }
+    ]
+  }
+]

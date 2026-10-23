@@ -1,0 +1,23 @@
+# Core Web Application Framework
+streamlit>=1.35.0
+
+# Data Validation & Serialization
+pydantic>=2.7.0
+pydantic-settings>=2.2.0
+
+# Data Manipulation & Numerical Processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Text Search & Similarity Analysis
+scikit-learn>=1.4.0
+
+# HTTP Client for LLM Gateways
+requests>=2.31.0
+
+# Environment Variable Management
+python-dotenv>=1.0.1
+
+# Automated Testing
+pytest>=8.0.0
+pytest-mock>=3.12.0
