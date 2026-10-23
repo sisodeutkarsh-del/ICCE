@@ -365,6 +365,20 @@ def main():
                 """,
                 unsafe_allow_html=True
             )
+            if wf.llm_telemetry:
+                with st.expander("🔍 View Live Agent Telemetry & LLM Prompt/Response (Tab 1)"):
+                    t = wf.llm_telemetry
+                    col_t1, col_t2, col_t3 = st.columns(3)
+                    with col_t1:
+                        st.metric("Model Gateway", t.get("provider_name", "OpenRouter"))
+                    with col_t2:
+                        st.metric("Model ID", t.get("model_id", "meta-llama/llama-3.1-8b-instruct").split("/")[-1])
+                    with col_t3:
+                        st.metric("Response Time", f"{t.get('latency_seconds', 0.0)}s")
+                    st.markdown("**Prompt Synthesized by Agent:**")
+                    st.code(t.get("prompt_sent", ""), language="text")
+                    st.markdown("**Raw Content Returned by Meta LLaMA 3.1:**")
+                    st.code(wf.executive_synthesis, language="text")
 
     # --- TAB 2: MATCHING RESULTS ---
     with tab_matches:
@@ -404,6 +418,20 @@ def main():
                     """,
                     unsafe_allow_html=True
                 )
+                if wf_res and wf_res.llm_telemetry:
+                    with st.expander("🔍 View Live Agent Telemetry & LLM Prompt/Response (Tab 2)"):
+                        t = wf_res.llm_telemetry
+                        col_t1, col_t2, col_t3 = st.columns(3)
+                        with col_t1:
+                            st.metric("Model Gateway", t.get("provider_name", "OpenRouter"))
+                        with col_t2:
+                            st.metric("Model ID", t.get("model_id", "meta-llama/llama-3.1-8b-instruct").split("/")[-1])
+                        with col_t3:
+                            st.metric("Response Time", f"{t.get('latency_seconds', 0.0)}s")
+                        st.markdown("**Prompt Synthesized by Agent:**")
+                        st.code(t.get("prompt_sent", ""), language="text")
+                        st.markdown("**Raw Content Returned by Meta LLaMA 3.1:**")
+                        st.code(wf_res.executive_synthesis, language="text")
 
             # Technical Analysis KPI cards
             render_analysis_metrics(analysis)

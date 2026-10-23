@@ -24,6 +24,8 @@ class AgentWorkflowResult(BaseModel):
     executive_synthesis: str
     markdown_report: str
     json_report: Dict[str, Any]
+    llm_telemetry: Optional[Dict[str, Any]] = None
+
 
 
 class MatchingAgentWorkflow:
@@ -57,6 +59,7 @@ class MatchingAgentWorkflow:
 
         # 4. Optional resilient LLM executive synthesis
         synthesis = ""
+        telemetry = None
         if trigger_llm_synthesis and self.orchestrator:
             try:
                 top_3 = [
@@ -77,6 +80,15 @@ class MatchingAgentWorkflow:
                 logger.info("Calling LLM Gateway via FallbackOrchestrator for project '%s'...", profile.project_name)
                 llm_res = self.orchestrator.generate_with_fallback(prompt, system_prompt=system_prompt)
                 synthesis = llm_res.content
+                telemetry = {
+                    "provider_name": llm_res.provider_name,
+                    "model_id": llm_res.model_id,
+                    "latency_seconds": round(llm_res.latency_seconds, 2),
+                    "token_usage": llm_res.token_usage or {},
+                    "prompt_sent": prompt,
+                    "system_prompt": system_prompt,
+                    "is_fallback": llm_res.is_fallback,
+                }
                 logger.info(
                     "Live AI synthesis received from provider '%s' (model: %s) in %.2fs",
                     llm_res.provider_name,
@@ -118,4 +130,5 @@ class MatchingAgentWorkflow:
             executive_synthesis=synthesis,
             markdown_report=md_report,
             json_report=json_report,
+            llm_telemetry=telemetry,
         )
