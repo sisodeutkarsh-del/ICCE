@@ -165,9 +165,13 @@ def render_sidebar():
     st.sidebar.markdown("---")
     # System Health Monitor
     st.sidebar.subheader("🔌 System Health & Gateways")
-    st.sidebar.markdown(f"**OpenRouter:** `{settings.masked_key('openrouter_api_key')}`")
-    st.sidebar.markdown(f"**HuggingFace:** `{settings.masked_key('huggingface_api_key')}`")
-    st.sidebar.markdown(f"**Google Gemini:** `{settings.masked_key('gemini_api_key')}`")
+    or_status = '<span style="color: #10B981; font-weight: 600;">● Configured</span>' if settings.openrouter_api_key else '<span style="color: #9CA3AF;">○ Offline</span>'
+    hf_status = '<span style="color: #10B981; font-weight: 600;">● Configured</span>' if settings.huggingface_api_key else '<span style="color: #9CA3AF;">○ Offline</span>'
+    gem_status = '<span style="color: #10B981; font-weight: 600;">● Configured</span>' if settings.gemini_api_key else '<span style="color: #9CA3AF;">○ Offline</span>'
+
+    st.sidebar.markdown(f"**OpenRouter:** {or_status}", unsafe_allow_html=True)
+    st.sidebar.markdown(f"**HuggingFace:** {hf_status}", unsafe_allow_html=True)
+    st.sidebar.markdown(f"**Google Gemini:** {gem_status}", unsafe_allow_html=True)
     
     total_prov = repo.count_providers(include_sample=True)
     verified_prov = repo.count_providers(include_sample=False)
