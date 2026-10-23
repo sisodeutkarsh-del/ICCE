@@ -40,7 +40,7 @@ class MatchingAgentWorkflow:
     def run_workflow(
         self,
         profile: ProjectProfile,
-        include_sample: bool = True,
+        include_sample: bool = False,
         trigger_llm_synthesis: bool = True,
     ) -> AgentWorkflowResult:
         """Executes the full pipeline from intake to final report."""
@@ -74,7 +74,9 @@ class MatchingAgentWorkflow:
                     "You are the senior solar technology advisor for Pune City municipal rooftop installations. "
                     "Provide factual, evidence-grounded insights without promotional fluff."
                 )
+                logger.info("Calling LLM Gateway via FallbackOrchestrator for project '%s'...", profile.project_name)
                 llm_res = self.orchestrator.generate_with_fallback(prompt, system_prompt=system_prompt)
+                logger.info("Live AI synthesis received from adapter '%s' in %.2fs", llm_res.adapter_name, llm_res.latency_seconds)
                 synthesis = llm_res.content
             except Exception as e:
                 logger.warning("LLM synthesis failed; proceeding with template synthesis: %s", str(e))

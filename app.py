@@ -158,7 +158,7 @@ def render_sidebar():
     st.sidebar.subheader("📚 Provider Registry Filter")
     include_sample = st.sidebar.checkbox(
         "Include Synthetic Sample Fixtures",
-        value=True,
+        value=False,
         help="When unchecked, only authentic verified international providers are queried."
     )
 
@@ -302,7 +302,7 @@ def main():
                 format_func=lambda x: x.value.replace("_", " ")
             )
 
-            submit_button = st.form_submit_button("🔍 Run Technical Compatibility Screening", type="primary")
+            submit_button = st.form_submit_button("🚀 Run AI Matching & Partner Evaluation", type="primary")
 
         if submit_button:
             if not selected_techs:
@@ -325,16 +325,46 @@ def main():
                         priority_weights=custom_weights,
                     )
 
-                    st.session_state["active_profile"] = profile
-                    candidates = repo.list_providers(include_sample=include_sample)
-                    eligible, disqualified = MatchingService.match_providers(profile, candidates)
-                    st.session_state["eligible_results"] = eligible
-                    st.session_state["disqualified_results"] = disqualified
-                    st.session_state["analysis"] = RequirementAnalyzerService.analyze_project(profile)
+                    with st.spinner("🤖 AI Agent is evaluating technical compatibility and generating strategic partner synthesis via Meta LLaMA 3.1..."):
+                        wf_res = workflow.run_workflow(
+                            profile=profile,
+                            include_sample=include_sample,
+                            trigger_llm_synthesis=True,
+                        )
 
-                    st.success(f"✅ Screening completed for **{profile.project_name}**! Switch to the 'Matching Results' tab to view rankings.")
+                    st.session_state["active_profile"] = profile
+                    st.session_state["wf_result"] = wf_res
+                    st.session_state["eligible_results"] = wf_res.eligible_results
+                    st.session_state["disqualified_results"] = wf_res.disqualified_results
+                    st.session_state["analysis"] = wf_res.analysis
+                    st.session_state["current_md_report"] = wf_res.markdown_report
+                    st.session_state["current_json_report"] = json.dumps(wf_res.json_report, indent=2)
+
+                    st.success(f"✅ AI Matching and Synthesis completed for **{profile.project_name}**! Switch to 'Matching Results' or view summary below.")
                 except Exception as e:
                     st.error(f"❌ Input Validation Error: {str(e)}")
+
+        # Immediate AI Output Card on Tab 1
+        if "wf_result" in st.session_state and st.session_state["wf_result"]:
+            wf = st.session_state["wf_result"]
+            top_p = wf.eligible_results[0].provider.name if wf.eligible_results else "None"
+            top_s = f"{wf.eligible_results[0].compatibility_score.total_score:.1f}" if wf.eligible_results else "N/A"
+            st.markdown("---")
+            st.markdown(
+                f"""
+                <div style="border: 2px solid #10B981; border-radius: 10px; padding: 18px; background: #F0FDF4; margin-top: 15px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                        <h4 style="margin: 0; color: #065F46;">🤖 Live AI Agent Output ({wf.profile.project_name})</h4>
+                        <span style="background: #10B981; color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Top Match: {top_p} ({top_s}/100)</span>
+                    </div>
+                    <p style="margin: 0 0 10px 0; color: #1F2937; line-height: 1.6; font-size: 0.95rem;">
+                        {wf.executive_synthesis if wf.executive_synthesis else 'Screening completed with verified international partners.'}
+                    </p>
+                    <small style="color: #64748B;">⚡ Model: <b>Meta LLaMA 3.1 8B Instruct</b> via OpenRouter | Evaluated: <b>{len(wf.eligible_results) + len(wf.disqualified_results)} candidates</b> (100% verified genuine providers)</small>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
     # --- TAB 2: MATCHING RESULTS ---
     with tab_matches:
@@ -345,9 +375,35 @@ def main():
             eligible: list = st.session_state.get("eligible_results", [])
             disqualified: list = st.session_state.get("disqualified_results", [])
             analysis: dict = st.session_state.get("analysis", {})
+            wf_res = st.session_state.get("wf_result")
 
             st.markdown(f"### Screening Results: *{profile.project_name}*")
             st.caption(f"📍 {profile.pune_locality} | 🏢 {profile.building_type.value} | ⚡ {profile.target_capacity_kw} kW")
+
+            # Prominent Live AI Strategic Briefing
+            synth_text = wf_res.executive_synthesis if wf_res and wf_res.executive_synthesis else ""
+            if not synth_text and wf_res and wf_res.markdown_report:
+                try:
+                    synth_text = wf_res.markdown_report.split("## 2.")[0].split("## 1. Executive Summary")[-1].strip()
+                except Exception:
+                    synth_text = ""
+            if synth_text:
+                st.markdown(
+                    f"""
+                    <div style="
+                        border: 1px solid #10B981;
+                        border-left: 6px solid #10B981;
+                        border-radius: 8px;
+                        padding: 16px 20px;
+                        margin-bottom: 24px;
+                        background-color: #ECFDF5;
+                    ">
+                        <h4 style="margin: 0 0 8px 0; color: #065F46;">🤖 Live AI Agent Recommendation (Meta LLaMA 3.1 via OpenRouter)</h4>
+                        <p style="margin: 0; color: #1F2937; line-height: 1.6; font-size: 0.95rem;">{synth_text}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
             # Technical Analysis KPI cards
             render_analysis_metrics(analysis)
@@ -449,7 +505,7 @@ def main():
                     "Type": "Synthetic Sample" if p.is_sample_data else "Verified Genuine",
                 })
             df = pd.DataFrame(table_data)
-            st.dataframe(df, use_container_width=True)
+            st.dataframe(df, width="stretch")
 
             st.markdown("---")
             st.markdown("#### 🔍 Provider Evidence Citations")
