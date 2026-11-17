@@ -48,6 +48,9 @@ class Settings(BaseSettings):
     @property
     def absolute_db_path(self) -> Path:
         """Returns the absolute path to the SQLite database file."""
+        import os
+        if os.environ.get("VERCEL"):
+            return Path("/tmp/solar_agent.db")
         p = Path(self.database_path)
         return p if p.is_absolute() else BASE_DIR / p
 

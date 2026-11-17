@@ -4,7 +4,8 @@
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.42+-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![SQLite](https://img.shields.io/badge/Database-SQLite%203-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
-[![Tests Passing](https://img.shields.io/badge/Tests-51%2F51%20Passed%20(100%25)-10B981?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
+[![Tests Passing](https://img.shields.io/badge/Tests-56%2F56%20Passed%20(100%25)-10B981?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
+[![Vercel Ready](https://img.shields.io/badge/Vercel-Serverless%20Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)](vercel.json)
 [![Security](https://img.shields.io/badge/Security-Zero%20Secret%20Leakage-10B981?style=for-the-badge&logo=shield&logoColor=white)](config/settings.py)
 
 > **Locally runnable, evidence-grounded AI agent matching rooftop solar projects in Pune City with verified international clean-energy technology partners under UN Sustainable Development Goal 7, Target 7.A.**
@@ -151,9 +152,24 @@ streamlit run app.py
 ```
 Open your browser at `http://localhost:8501`.
 
+### 4.6 Deploy on Vercel (Serverless Architecture)
+The repository includes a production-ready Vercel Serverless deployment architecture with a decoupled high-speed web interface (`public/index.html`) and FastAPI serverless backend (`api/index.py`):
+1. Push this repository to GitHub (`https://github.com/sisodeutkarsh-del/ICCE`).
+2. Log in to [vercel.com](https://vercel.com) and click **Add New...** > **Project**.
+3. Import your `ICCE` GitHub repository.
+4. Leave framework presets as default (`vercel.json` automatically configures routes).
+5. (Optional) Set environment variables such as `OPENROUTER_API_KEY` or `GEMINI_API_KEY`.
+6. Click **Deploy**. Vercel will build the serverless functions and host the static UI on its global edge CDN.
+
+To test the decoupled Vercel stack locally:
+```powershell
+python -m uvicorn api.index:app --port 8000 --reload
+```
+Open your browser at `http://localhost:8000`.
+
 ---
 
-## 🧪 5. Automated Test Suite (51 / 51 Passed)
+## 🧪 5. Automated Test Suite (56 / 56 Passed)
 
 Run the full automated test suite offline:
 ```powershell

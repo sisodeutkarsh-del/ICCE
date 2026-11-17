@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolarMatch Pune | AI Solar Partner Matching Agent (UN SDG 7.A)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .badge-sdg { background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #10B981; }
+    .score-circle {
+      background: conic-gradient(#10B981 var(--score-pct), #E2E8F0 0);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white border-b-4 border-emerald-500 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span class="badge-sdg text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
+            <i class="fa-solid fa-earth-americas text-emerald-400"></i> UN SDG 7.A Clean Energy International Cooperation
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center gap-2">
+            <span>☀️ SolarMatch Pune</span>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 font-mono font-normal px-2.5 py-0.5 rounded-md border border-emerald-500/30">Vercel Serverless Ready</span>
+          </h1>
+          <p class="text-slate-300 text-sm mt-1 max-w-3xl">
+            AI-driven technical partner matching for rooftop solar PV installations in Pune City, Maharashtra. Powered by MSEDCL net-metering standards and verified international clean tech equipment manufacturers.
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-lg px-4 py-2 text-right">
+            <div class="text-xs text-slate-400 uppercase font-medium">Database Status</div>
+            <div id="dbStatusBadge" class="text-xs font-semibold text-emerald-400 flex items-center justify-end gap-1.5 mt-0.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="dbStatusText">Connected (SQLite)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION TABS -->
+      <nav class="flex space-x-2 mt-6 overflow-x-auto pb-1 text-sm font-medium border-t border-slate-700/60 pt-4" id="mainTabs">
+        <button onclick="switchTab('intake')" id="tabBtn-intake" class="tab-btn px-4 py-2 rounded-lg bg-emerald-600 text-white shadow-sm flex items-center gap-2 transition">
+          <i class="fa-solid fa-pen-ruler"></i> Project Intake & Screening
+        </button>
+        <button onclick="switchTab('results')" id="tabBtn-results" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition">
+          <i class="fa-solid fa-bullseye"></i> Matching Results & Rankings
+          <span id="resultsCountBadge" class="hidden text-xs bg-emerald-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+        <button onclick="switchTab('reports')" id="tabBtn-reports" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition">
+          <i class="fa-solid fa-file-contract"></i> Collaboration Report & Export
+        </button>
+        <button onclick="switchTab('catalog')" id="tabBtn-catalog" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition">
+          <i class="fa-solid fa-book-bookmark"></i> Provider Knowledge Base
+        </button>
+        <button onclick="switchTab('methodology')" id="tabBtn-methodology" class="tab-btn px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition">
+          <i class="fa-solid fa-circle-info"></i> Pune Context & Methodology
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN BODY -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: PROJECT INTAKE & SCREENING -->
+    <!-- ========================================== -->
+    <section id="tab-intake" class="tab-pane space-y-6">
+      
+      <!-- Scenario Presets -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-amber-500"></i> Load Realistic Pune Scenario Preset
+          </h2>
+          <span class="text-xs text-slate-400">1-click automated intake population</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="scenariosContainer">
+          <!-- Populated by JS -->
+          <div class="animate-pulse bg-slate-100 h-20 rounded-lg"></div>
+          <div class="animate-pulse bg-slate-100 h-20 rounded-lg"></div>
+          <div class="animate-pulse bg-slate-100 h-20 rounded-lg"></div>
+        </div>
+      </div>
+
+      <!-- Intake Form -->
+      <form id="intakeForm" onsubmit="handleFormSubmit(event)" class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span>📝 Enter Project Specifications</span>
+          </h2>
+          <p class="text-slate-500 text-sm mt-0.5">Specify building architecture, DC capacity, and Pune locality constraints.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Project Title / Name <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="project_name" required value="Kothrud Cooperative Housing Society Rooftop"
+                class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Pune Locality / Area <span class="text-rose-500">*</span>
+              </label>
+              <input type="text" id="pune_locality" required value="Kothrud, Pune"
+                class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" />
+              <p class="text-xs text-slate-400 mt-1">E.g., Kothrud, Baner, Hinjawadi, PCMC, Hadapsar, Aundh</p>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Building Sector Type <span class="text-rose-500">*</span>
+              </label>
+              <select id="building_type" class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white">
+                <option value="HOUSING_SOCIETY">Housing Society (CHS)</option>
+                <option value="RESIDENTIAL_INDIVIDUAL">Residential Individual (Bungalow/Row House)</option>
+                <option value="COMMERCIAL">Commercial (Offices, IT Parks)</option>
+                <option value="EDUCATIONAL">Educational (Institutes, Colleges)</option>
+                <option value="INDUSTRIAL">Industrial (Warehouses, Factories)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Target Capacity (kW) <span class="text-rose-500">*</span>
+              </label>
+              <input type="number" id="target_capacity_kw" required min="0.5" max="2500" step="0.5" value="35.0"
+                class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" />
+              <p class="text-xs text-slate-400 mt-1">Sizing range: 0.5 kW to 2,500 kW</p>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Roof Structural Type <span class="text-rose-500">*</span>
+              </label>
+              <select id="roof_type" class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white">
+                <option value="RCC_FLAT">RCC Flat Terrace</option>
+                <option value="METAL_SHED">Metal Shed / Industrial Profile</option>
+                <option value="TILED_SLOPE">Tiled / Sloped Roof</option>
+                <option value="OPEN_TERRACE_MIXED">Open Terrace Mixed</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Estimated Total Budget (INR) (Optional)
+              </label>
+              <input type="number" id="budget_inr" min="0" max="500000000" step="10000" value="2200000"
+                class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" />
+              <p class="text-xs text-slate-400 mt-1">Capital expenditure allocation in ₹</p>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Grid Interconnection Topology <span class="text-rose-500">*</span>
+              </label>
+              <select id="grid_coupling" class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white">
+                <option value="ON_GRID_NET_METERED">On-Grid Net-Metered (MSEDCL)</option>
+                <option value="OFF_GRID">Off-Grid (Standalone Island)</option>
+                <option value="HYBRID_STORAGE">Hybrid Battery Storage</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                Minimum Local Service Level <span class="text-rose-500">*</span>
+              </label>
+              <select id="service_requirement" class="w-full rounded-lg border-slate-300 border px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none bg-white">
+                <option value="MAHARASHTRA_SERVICE_NETWORK">Maharashtra Service Network</option>
+                <option value="LOCAL_PUNE_OFFICE">Local Pune / PCMC Office & Spares</option>
+                <option value="PAN_INDIA_AUTHORIZED_PARTNER">Pan-India Authorized EPC Partner</option>
+                <option value="REMOTE_INTERNATIONAL_SUPPORT">Remote International Support</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desired Technologies -->
+        <div class="border-t border-slate-100 pt-5">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
+            Desired Technology Components <span class="text-rose-500">*</span> (Select at least one)
+          </label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm" id="techCheckboxGroup">
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="STRING_INVERTER" checked class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>String Inverter</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="TOPCON" checked class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>TOPCon Modules</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="MICROINVERTER" class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>Microinverters</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="MONO_PERC" class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>Mono PERC</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="HYBRID_INVERTER" class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>Hybrid Inverter</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="HJT" class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>Heterojunction (HJT)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+              <input type="checkbox" value="BESS_LFP" class="rounded text-emerald-600 focus:ring-emerald-500" />
+              <span>BESS LFP Battery</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Collapsible Criteria Weights -->
+        <details class="border border-slate-200 rounded-lg p-4 bg-slate-50/50">
+          <summary class="font-semibold text-sm text-slate-700 cursor-pointer hover:text-emerald-700 flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-emerald-600"></i> Advanced Stage-2 Scoring Weights Tuning
+            </span>
+            <span class="text-xs text-slate-400 font-normal">Default: Tech (25%), Scale (20%), Service (20%), Certs (15%), Docs (10%), Cost (10%)</span>
+          </summary>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 text-xs">
+            <div>
+              <label class="block font-medium mb-1">Tech Fit: <span id="val_w_tech" class="font-bold text-emerald-600">0.25</span></label>
+              <input type="range" id="w_tech" min="0" max="0.5" step="0.05" value="0.25" oninput="document.getElementById('val_w_tech').innerText = this.value" class="w-full" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Operating Scale: <span id="val_w_cap" class="font-bold text-emerald-600">0.20</span></label>
+              <input type="range" id="w_cap" min="0" max="0.5" step="0.05" value="0.20" oninput="document.getElementById('val_w_cap').innerText = this.value" class="w-full" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Service Footprint: <span id="val_w_svc" class="font-bold text-emerald-600">0.20</span></label>
+              <input type="range" id="w_svc" min="0" max="0.5" step="0.05" value="0.20" oninput="document.getElementById('val_w_svc').innerText = this.value" class="w-full" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Certifications: <span id="val_w_cert" class="font-bold text-emerald-600">0.15</span></label>
+              <input type="range" id="w_cert" min="0" max="0.5" step="0.05" value="0.15" oninput="document.getElementById('val_w_cert').innerText = this.value" class="w-full" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Documentation: <span id="val_w_doc" class="font-bold text-emerald-600">0.10</span></label>
+              <input type="range" id="w_doc" min="0" max="0.5" step="0.05" value="0.10" oninput="document.getElementById('val_w_doc').innerText = this.value" class="w-full" />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Budget Alignment: <span id="val_w_cost" class="font-bold text-emerald-600">0.10</span></label>
+              <input type="range" id="w_cost" min="0" max="0.5" step="0.05" value="0.10" oninput="document.getElementById('val_w_cost').innerText = this.value" class="w-full" />
+            </div>
+          </div>
+        </details>
+
+        <!-- Synthetic sample checkbox -->
+        <div class="flex items-center justify-between pt-2">
+          <label class="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer">
+            <input type="checkbox" id="include_sample" class="rounded text-emerald-600 focus:ring-emerald-500" />
+            <span>Include Synthetic Sample Fixtures (When unchecked, only authentic verified international providers are evaluated)</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" id="submitBtn" class="w-full py-3.5 px-6 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-microchip"></i>
+            <span>Run AI Matching & Partner Evaluation</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: MATCHING RESULTS & RANKINGS -->
+    <!-- ========================================== -->
+    <section id="tab-results" class="tab-pane hidden space-y-6">
+      
+      <!-- Empty State -->
+      <div id="resultsEmptyState" class="bg-white border border-slate-200 rounded-xl p-12 text-center">
+        <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+          <i class="fa-solid fa-solar-panel"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-800">No Active Evaluation Yet</h3>
+        <p class="text-sm text-slate-500 mt-1 max-w-md mx-auto">
+          Configure your rooftop project specifications under the "Project Intake & Screening" tab and click "Run AI Matching".
+        </p>
+        <button onclick="switchTab('intake')" class="mt-4 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-500 transition">
+          Go to Intake Form
+        </button>
+      </div>
+
+      <!-- Loaded Results Content -->
+      <div id="resultsLoadedState" class="hidden space-y-6">
+
+        <!-- Engineering Metrics Bar -->
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 shadow-md border border-slate-700">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+              <i class="fa-solid fa-chart-line"></i> Pune Climatic & Engineering Sizing Metrics
+            </h3>
+            <span class="text-xs text-slate-400">Yield Factor: 1,500 kWh/kWp/year</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="engineeringMetricsContainer">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Executive Synthesis Card -->
+        <div id="executiveSynthesisBox" class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 text-emerald-950">
+          <div class="flex items-center gap-2 font-bold text-sm text-emerald-800 mb-1">
+            <i class="fa-solid fa-robot"></i> Executive Synthesis & Recommendation
+          </div>
+          <p id="executiveSynthesisText" class="text-sm leading-relaxed"></p>
+        </div>
+
+        <!-- Ranked Eligible Matches -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span>🎯 Stage-2 Ranked International Partners</span>
+              <span id="eligibleCountTag" class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full">0 Verified</span>
+            </h3>
+            <span class="text-xs text-slate-500">Sorted by Multi-Criteria Compatibility Score (0–100)</span>
+          </div>
+
+          <div id="eligibleMatchesList" class="space-y-4">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Disqualified Candidates Section -->
+        <div id="disqualifiedSection" class="border border-rose-200 bg-rose-50/30 rounded-xl p-5">
+          <details>
+            <summary class="font-bold text-sm text-rose-900 cursor-pointer flex items-center justify-between">
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-ban text-rose-500"></i> Disqualified Candidates (Failed Stage-1 Hard Gates)
+                <span id="disqualifiedCountTag" class="text-xs bg-rose-100 text-rose-700 font-semibold px-2 py-0.5 rounded-full">0 Excluded</span>
+              </span>
+              <span class="text-xs text-slate-400">Click to expand audit trail</span>
+            </summary>
+            <div id="disqualifiedMatchesList" class="mt-4 space-y-3 pt-3 border-t border-rose-100">
+              <!-- Injected by JS -->
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: REPORT & EXPORT -->
+    <!-- ========================================== -->
+    <section id="tab-reports" class="tab-pane hidden space-y-6">
+      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">📑 Collaboration Recommendation Report</h2>
+            <p class="text-slate-500 text-sm mt-0.5">Audit-ready documentation compliant with UN SDG 7.A and MSEDCL net-metering standards.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="downloadReport('markdown')" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
+              <i class="fa-solid fa-download"></i> Export Markdown (.md)
+            </button>
+            <button onclick="downloadReport('json')" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
+              <i class="fa-solid fa-file-code"></i> Export JSON (.json)
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 space-y-4">
+          <div class="flex gap-2">
+            <button onclick="switchReportFormat('md')" id="repBtnMd" class="px-3 py-1.5 text-xs font-semibold rounded-md bg-slate-200 text-slate-800">Markdown Preview</button>
+            <button onclick="switchReportFormat('json')" id="repBtnJson" class="px-3 py-1.5 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-800">Raw JSON Schema</button>
+          </div>
+          <pre id="reportPreviewArea" class="bg-slate-900 text-slate-100 p-4 rounded-lg text-xs font-mono overflow-x-auto max-h-[500px] border border-slate-800">Run an evaluation first to generate the report.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: PROVIDER KNOWLEDGE BASE -->
+    <!-- ========================================== -->
+    <section id="tab-catalog" class="tab-pane hidden space-y-6">
+      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">📚 Verified International Technology Partners</h2>
+            <p class="text-slate-500 text-sm mt-0.5">Curated equipment catalog with authenticated datasheets and BIS CRS / IEC compliance.</p>
+          </div>
+          <div class="w-full sm:w-72">
+            <input type="text" id="catalogSearchInput" oninput="filterCatalog(this.value)" placeholder="Search provider, tech, or country..."
+              class="w-full rounded-lg border-slate-300 border px-3 py-1.5 text-xs focus:ring-2 focus:ring-emerald-500 outline-none" />
+          </div>
+        </div>
+
+        <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+          <!-- Populated by JS -->
+          <div class="animate-pulse bg-slate-100 h-48 rounded-lg"></div>
+          <div class="animate-pulse bg-slate-100 h-48 rounded-lg"></div>
+          <div class="animate-pulse bg-slate-100 h-48 rounded-lg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: PUNE CONTEXT & METHODOLOGY -->
+    <!-- ========================================== -->
+    <section id="tab-methodology" class="tab-pane hidden space-y-6">
+      <div class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm space-y-6 text-sm leading-relaxed text-slate-700">
+        <h2 class="text-xl font-bold text-slate-900">📋 Engineering Methodology & Regulatory Standards</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-800 text-sm mb-1">☀️ Annual Generation Yield</h3>
+            <p class="text-xs text-slate-600 font-mono">1,500 kWh / kWp / year</p>
+            <p class="text-xs text-slate-500 mt-2">Empirical Pune irradiance constant based on MNRE historical data.</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-800 text-sm mb-1">📐 Area Requirement</h3>
+            <p class="text-xs text-slate-600 font-mono">100 sq.ft / kW (approx 9.3 m²)</p>
+            <p class="text-xs text-slate-500 mt-2">Standard shadow-free flat RCC rooftop clearance required.</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <h3 class="font-bold text-slate-800 text-sm mb-1">🌱 Carbon Offset Factor</h3>
+            <p class="text-xs text-slate-600 font-mono">0.82 kg CO₂ / kWh</p>
+            <p class="text-xs text-slate-500 mt-2">Central Electricity Authority (CEA) India grid emission baseline.</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900">Two-Stage Evaluation Pipeline</h3>
+          <p>
+            <strong>Stage 1 (Hard Eligibility Gates):</strong> Every candidate provider must pass 4 non-negotiable gates:
+            Technology overlap (at least 1 requested technology supplied), Operating scale capacity bounds (target kW falls inside provider [min_kw, max_kw]), Building sector compatibility, and minimum India/Pune service presence.
+          </p>
+          <p>
+            <strong>Stage 2 (Multi-Criteria Compatibility Scoring):</strong> Eligible candidates receive an audit-grade score (0–100):
+            <code class="bg-slate-100 text-emerald-800 px-2 py-0.5 rounded">S_total = max(0, Σ(w_i * s_i) - P_missing)</code>
+            where weights cover Technology Fit (25%), Capacity Fit (20%), Service (20%), Certifications (15%), Documentation (10%), and Budget (10%).
+          </p>
+        </div>
+
+        <div class="border-t border-slate-100 pt-4">
+          <p class="text-xs text-slate-400">
+            Aligned with United Nations Sustainable Development Goal 7, Target 7.A: <em>"By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology."</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
+      <div>☀️ <strong>SolarMatch Pune</strong> — UN SDG 7.A AI Partner Matching Agent</div>
+      <div class="mt-2 sm:mt-0">Deployable on Vercel Serverless & Streamlit Community Cloud</div>
+    </div>
+  </footer>
+
+  <!-- CLIENT LOGIC SCRIPT -->
+  <script>
+    let currentMatchData = null;
+    let catalogProviders = [];
+    let activeReportFormat = 'md';
+
+    // TAB SWITCHING
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+      });
+
+      const activePane = document.getElementById(`tab-${tabId}`);
+      const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+      if (activePane) activePane.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+        activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+      }
+    }
+
+    // LOAD SCENARIOS
+    async function loadScenarios() {
+      try {
+        const res = await fetch('/api/scenarios');
+        const scenarios = await res.json();
+        const container = document.getElementById('scenariosContainer');
+        container.innerHTML = '';
+
+        scenarios.forEach(sc => {
+          const card = document.createElement('div');
+          card.className = 'border border-slate-200 hover:border-emerald-500 rounded-lg p-3 bg-slate-50 hover:bg-emerald-50/40 cursor-pointer transition text-left';
+          card.onclick = () => applyScenario(sc);
+          card.innerHTML = `
+            <div class="text-xs font-bold text-slate-900 flex items-center justify-between">
+              <span>${sc.title.split(':')[1]?.trim() || sc.title}</span>
+              <span class="text-[10px] bg-slate-200 px-1.5 py-0.5 rounded font-mono">${sc.target_capacity_kw} kW</span>
+            </div>
+            <p class="text-[11px] text-slate-500 line-clamp-2 mt-1">${sc.description}</p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Failed to load scenarios:', err);
+      }
+    }
+
+    function applyScenario(sc) {
+      document.getElementById('project_name').value = sc.name;
+      document.getElementById('pune_locality').value = sc.locality;
+      document.getElementById('building_type').value = sc.building_type;
+      document.getElementById('target_capacity_kw').value = sc.target_capacity_kw;
+      document.getElementById('budget_inr').value = sc.budget_inr;
+      document.getElementById('roof_type').value = sc.roof_type;
+      document.getElementById('grid_coupling').value = sc.grid_coupling;
+      document.getElementById('service_requirement').value = sc.service_requirement;
+
+      // Uncheck all tech checkboxes and check scenario ones
+      document.querySelectorAll('#techCheckboxGroup input[type="checkbox"]').forEach(cb => {
+        cb.checked = sc.technologies.includes(cb.value);
+      });
+    }
+
+    // FORM SUBMIT
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const origHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Evaluating Technical Sizing & Stage 1/2 Gates...</span>`;
+
+      // Collect tech checkboxes
+      const selectedTechs = Array.from(document.querySelectorAll('#techCheckboxGroup input[type="checkbox"]:checked')).map(cb => cb.value);
+      if (selectedTechs.length === 0) {
+        alert('Please select at least one desired technology component.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = origHtml;
+        return;
+      }
+
+      const payload = {
+        project_name: document.getElementById('project_name').value.trim(),
+        pune_locality: document.getElementById('pune_locality').value.trim(),
+        building_type: document.getElementById('building_type').value,
+        target_capacity_kw: parseFloat(document.getElementById('target_capacity_kw').value),
+        budget_inr: parseFloat(document.getElementById('budget_inr').value) || null,
+        roof_type: document.getElementById('roof_type').value,
+        technology_preference: selectedTechs,
+        grid_coupling: document.getElementById('grid_coupling').value,
+        service_requirement: document.getElementById('service_requirement').value,
+        priority_weights: {
+          tech: parseFloat(document.getElementById('w_tech').value),
+          capacity: parseFloat(document.getElementById('w_cap').value),
+          service: parseFloat(document.getElementById('w_svc').value),
+          cert: parseFloat(document.getElementById('w_cert').value),
+          doc: parseFloat(document.getElementById('w_doc').value),
+          cost: parseFloat(document.getElementById('w_cost').value),
+        },
+        include_sample: document.getElementById('include_sample').checked,
+        trigger_llm_synthesis: true,
+      };
+
+      try {
+        const res = await fetch('/api/match', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.detail || 'Evaluation failed');
+        }
+
+        const data = await res.json();
+        currentMatchData = data;
+        renderResults(data);
+        switchTab('results');
+      } catch (err) {
+        alert('Error: ' + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = origHtml;
+      }
+    }
+
+    // RENDER MATCH RESULTS
+    function renderResults(data) {
+      document.getElementById('resultsEmptyState').classList.add('hidden');
+      document.getElementById('resultsLoadedState').classList.remove('hidden');
+
+      const countBadge = document.getElementById('resultsCountBadge');
+      countBadge.innerText = data.eligible_results.length;
+      countBadge.classList.remove('hidden');
+
+      // Engineering Metrics
+      const an = data.analysis;
+      const metricsContainer = document.getElementById('engineeringMetricsContainer');
+      metricsContainer.innerHTML = `
+        <div class="bg-slate-800/90 p-3 rounded-lg border border-slate-700">
+          <div class="text-[11px] text-slate-400 uppercase font-medium">Target Capacity</div>
+          <div class="text-xl font-bold text-white mt-0.5">${data.profile.target_capacity_kw} <span class="text-xs text-emerald-400">kW</span></div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-lg border border-slate-700">
+          <div class="text-[11px] text-slate-400 uppercase font-medium">Annual Generation</div>
+          <div class="text-xl font-bold text-white mt-0.5">${an.annual_generation_kwh.toLocaleString()} <span class="text-xs text-emerald-400">kWh</span></div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-lg border border-slate-700">
+          <div class="text-[11px] text-slate-400 uppercase font-medium">Estimated Roof Area</div>
+          <div class="text-xl font-bold text-white mt-0.5">${an.roof_area_sqft.toLocaleString()} <span class="text-xs text-emerald-400">sq.ft</span></div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-lg border border-slate-700">
+          <div class="text-[11px] text-slate-400 uppercase font-medium">Annual CO₂ Offset</div>
+          <div class="text-xl font-bold text-white mt-0.5">${an.co2_offset_tons} <span class="text-xs text-emerald-400">tons</span></div>
+        </div>
+      `;
+
+      // Executive Synthesis
+      const synthText = data.executive_synthesis || (data.eligible_results.length > 0 
+        ? `Deterministic screening completed for ${data.profile.project_name} in ${data.profile.pune_locality}. Ranked ${data.eligible_results.length} qualified international partners meeting Pune service requirements and MSEDCL standards.`
+        : 'No candidate passed all Stage-1 eligibility gates.');
+      document.getElementById('executiveSynthesisText').innerText = synthText;
+
+      // Eligible Matches List
+      const eligibleList = document.getElementById('eligibleMatchesList');
+      eligibleList.innerHTML = '';
+      document.getElementById('eligibleCountTag').innerText = `${data.eligible_results.length} Eligible`;
+
+      if (data.eligible_results.length === 0) {
+        eligibleList.innerHTML = `
+          <div class="p-6 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-sm">
+            No providers satisfied all Stage-1 hard filters for the requested capacity and technology preferences. Check disqualified candidates below.
+          </div>
+        `;
+      } else {
+        data.eligible_results.forEach((match, idx) => {
+          const score = match.compatibility_score.total_score.toFixed(1);
+          const tier = match.compatibility_score.score_tier;
+          const p = match.provider;
+
+          const card = document.createElement('div');
+          card.className = 'bg-white border border-slate-200 hover:border-emerald-400 rounded-xl p-5 shadow-sm space-y-4 transition';
+          card.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-sm flex items-center justify-center">#${idx + 1}</span>
+                <div>
+                  <h4 class="text-lg font-bold text-slate-900">${p.name}</h4>
+                  <div class="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
+                    <span><i class="fa-solid fa-location-dot text-slate-400"></i> ${p.headquarters_country}</span>
+                    <span>•</span>
+                    <span>Scale: ${p.min_capacity_kw}–${p.max_capacity_kw} kW</span>
+                    <span>•</span>
+                    <span class="text-emerald-700 font-medium">${p.india_presence_type.replace(/_/g, ' ')}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="text-right">
+                  <div class="text-2xl font-black text-slate-900">${score}<span class="text-xs font-normal text-slate-400">/100</span></div>
+                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${score >= 85 ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}">
+                    ${tier} Match
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Score Breakdown Progress Bars -->
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-[11px] bg-slate-50 p-3 rounded-lg border border-slate-100">
+              <div>
+                <span class="text-slate-500 block">Tech Fit</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.tech_fit.toFixed(0)}%</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Scale Fit</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.capacity_fit.toFixed(0)}%</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Service Fit</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.service_fit.toFixed(0)}%</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Certifications</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.cert_fit.toFixed(0)}%</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Documentation</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.doc_fit.toFixed(0)}%</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Budget Fit</span>
+                <span class="font-bold text-slate-800">${match.compatibility_score.cost_fit.toFixed(0)}%</span>
+              </div>
+            </div>
+
+            <!-- Drivers & Caveats -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="bg-emerald-50/50 p-3 rounded-lg border border-emerald-100">
+                <span class="font-bold text-emerald-800 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-circle-check text-emerald-600"></i> Positive Match Drivers
+                </span>
+                <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+                  ${match.positive_drivers.map(d => `<li>${d}</li>`).join('')}
+                </ul>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <span class="font-bold text-slate-700 flex items-center gap-1.5 mb-1">
+                  <i class="fa-solid fa-circle-exclamation text-amber-500"></i> Risk Flags & Missing Data
+                </span>
+                <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+                  ${match.risk_flags.length > 0 ? match.risk_flags.map(r => `<li>${r}</li>`).join('') : '<li class="text-slate-400 italic">No critical risks identified</li>'}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Evidence Citations Accordion -->
+            <details class="text-xs border-t border-slate-100 pt-2">
+              <summary class="font-semibold text-slate-500 hover:text-slate-800 cursor-pointer flex items-center gap-1">
+                <i class="fa-solid fa-link text-emerald-600"></i> View Verified Citations & Datasheets (${p.evidence_records.length})
+              </summary>
+              <div class="mt-2 space-y-1.5 pl-2 border-l-2 border-emerald-200">
+                ${p.evidence_records.map(ev => `
+                  <div class="py-1">
+                    <span class="font-medium text-slate-800">${ev.claim}</span> — 
+                    <a href="${ev.source_url}" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:underline inline-flex items-center gap-1">
+                      <span>Datasheet / Authority</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    <span class="text-slate-400 text-[10px] ml-1">(${ev.last_verified})</span>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+          `;
+          eligibleList.appendChild(card);
+        });
+      }
+
+      // Disqualified Candidates
+      const disList = document.getElementById('disqualifiedMatchesList');
+      disList.innerHTML = '';
+      document.getElementById('disqualifiedCountTag').innerText = `${data.disqualified_results.length} Excluded`;
+
+      if (data.disqualified_results.length === 0) {
+        disList.innerHTML = `<p class="text-xs text-slate-500 italic">All evaluated providers satisfied Stage 1 hard gates.</p>`;
+      } else {
+        data.disqualified_results.forEach(m => {
+          const item = document.createElement('div');
+          item.className = 'bg-white p-3 rounded-lg border border-rose-100 flex items-center justify-between text-xs';
+          item.innerHTML = `
+            <div>
+              <span class="font-bold text-slate-800">${m.provider.name}</span>
+              <span class="text-slate-400 ml-1">(${m.provider.headquarters_country})</span>
+              <div class="text-rose-600 font-medium mt-0.5">Reason: ${m.disqualification_reasons.join('; ')}</div>
+            </div>
+            <span class="text-[10px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-mono font-bold">Failed Stage 1</span>
+          `;
+          disList.appendChild(item);
+        });
+      }
+
+      // Populate Report Preview
+      updateReportPreview();
+    }
+
+    // REPORT TABS & DOWNLOAD
+    function switchReportFormat(fmt) {
+      activeReportFormat = fmt;
+      const btnMd = document.getElementById('repBtnMd');
+      const btnJson = document.getElementById('repBtnJson');
+
+      if (fmt === 'md') {
+        btnMd.className = 'px-3 py-1.5 text-xs font-semibold rounded-md bg-slate-200 text-slate-800';
+        btnJson.className = 'px-3 py-1.5 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-800';
+      } else {
+        btnJson.className = 'px-3 py-1.5 text-xs font-semibold rounded-md bg-slate-200 text-slate-800';
+        btnMd.className = 'px-3 py-1.5 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-800';
+      }
+      updateReportPreview();
+    }
+
+    function updateReportPreview() {
+      const area = document.getElementById('reportPreviewArea');
+      if (!currentMatchData) {
+        area.innerText = 'Run an evaluation first to generate the report.';
+        return;
+      }
+      if (activeReportFormat === 'md') {
+        area.innerText = currentMatchData.markdown_report;
+      } else {
+        area.innerText = JSON.stringify(currentMatchData.json_report, null, 2);
+      }
+    }
+
+    function downloadReport(format) {
+      if (!currentMatchData) {
+        alert('Please run a matching evaluation first.');
+        return;
+      }
+      const filename = `${currentMatchData.profile.project_name.toLowerCase().replace(/[^a-z0-9]/g, '_')}_solarmatch_report.${format === 'markdown' ? 'md' : 'json'}`;
+      const content = format === 'markdown' ? currentMatchData.markdown_report : JSON.stringify(currentMatchData.json_report, null, 2);
+      const mime = format === 'markdown' ? 'text/markdown' : 'application/json';
+
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // KNOWLEDGE BASE CATALOG
+    async function loadCatalog() {
+      try {
+        const res = await fetch('/api/providers?include_sample=true');
+        catalogProviders = await res.json();
+        renderCatalog(catalogProviders);
+      } catch (err) {
+        console.error('Failed to load catalog:', err);
+      }
+    }
+
+    function renderCatalog(providers) {
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = '';
+
+      providers.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3';
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-base text-slate-900">${p.name}</h4>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded ${p.is_sample_data ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
+              ${p.is_sample_data ? 'Sample' : 'Verified'}
+            </span>
+          </div>
+          <div class="text-xs text-slate-600 space-y-1">
+            <div><strong class="text-slate-800">Headquarters:</strong> ${p.headquarters_country}</div>
+            <div><strong class="text-slate-800">Capacity Range:</strong> ${p.min_capacity_kw} – ${p.max_capacity_kw} kW</div>
+            <div><strong class="text-slate-800">India Presence:</strong> ${p.india_presence_type.replace(/_/g, ' ')}</div>
+            <div><strong class="text-slate-800">Certifications:</strong> ${p.certifications.join(', ')}</div>
+          </div>
+          <div class="pt-2 border-t border-slate-100">
+            <span class="text-[10px] text-slate-400 block mb-1">Authentic Evidence Citations:</span>
+            <div class="space-y-1">
+              ${p.evidence_records.slice(0, 2).map(ev => `
+                <a href="${ev.source_url}" target="_blank" rel="noopener noreferrer" class="text-xs text-emerald-600 hover:underline block truncate">
+                  <i class="fa-solid fa-file-pdf mr-1 text-[10px]"></i> ${ev.claim}
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterCatalog(query) {
+      const q = query.toLowerCase();
+      const filtered = catalogProviders.filter(p => 
+        p.name.toLowerCase().includes(q) ||
+        p.headquarters_country.toLowerCase().includes(q) ||
+        p.primary_technologies.some(t => t.toLowerCase().includes(q))
+      );
+      renderCatalog(filtered);
+    }
+
+    // CHECK HEALTH & INIT
+    async function init() {
+      try {
+        const res = await fetch('/api/health');
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('dbStatusText').innerText = `Active (${data.total_providers} Providers)`;
+        }
+      } catch (err) {
+        document.getElementById('dbStatusText').innerText = 'Offline';
+        document.getElementById('dbStatusBadge').classList.replace('text-emerald-400', 'text-amber-400');
+      }
+      loadScenarios();
+      loadCatalog();
+    }
+
+    init();
+  </script>
+</body>
+</html>
